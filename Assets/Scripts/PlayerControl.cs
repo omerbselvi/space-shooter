@@ -10,6 +10,7 @@ public class Boundary{
 public class PlayerControl : MonoBehaviour {
 
     private Rigidbody playerRb;
+    private AudioSource playerWeapon;
     public float speed;
     public float tiltMultiplier;
     public Boundary boundary;
@@ -22,12 +23,14 @@ public class PlayerControl : MonoBehaviour {
 
     private void Start() {
         playerRb = GetComponent<Rigidbody>();
+        playerWeapon = GetComponent<AudioSource>();
     }
 
     private void Update() {
         if(Input.GetButton("Jump") && Time.time > nextFire){
             nextFire = Time.time + fireRate;
             Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            playerWeapon.Play();
         }
 
     }
