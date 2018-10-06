@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour {
     public Text scoreText;
     public Text gameOverText;
     public Text restartText;
+    public Text mainMenuText;
 
     private bool restart;
     private bool gameOver;
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour {
         };
         gameOverText.text = "";
         restartText.text = "";
+        mainMenuText.text = "";
         restart = false;
         gameOver = false;
         score = 0;
@@ -42,10 +44,14 @@ public class GameController : MonoBehaviour {
         if(restart){
             if(Input.GetKey(KeyCode.R)){
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            } 
+            else if(Input.GetKey(KeyCode.Q)){
+                SceneManager.LoadScene("Menu");
             }
         }
         if (gameOver) {
             restartText.text = "Press R to restart game";
+            mainMenuText.text = "Press Q to go back to main menu";
             restart = true;
         }
     }
