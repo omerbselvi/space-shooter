@@ -17,11 +17,19 @@ public class PlayerControl : MonoBehaviour {
 
     public GameObject shot;
     public Transform shotSpawn;
+    public Transform shotSpawn2;
     public float fireRate;
 
     private float nextFire;
+    private CharacterSelection characterSelection;
 
     private void Start() {
+        GameObject cSelectionObject = GameObject.FindWithTag("CharacterSelection");
+        if (cSelectionObject != null) {
+            characterSelection = cSelectionObject.GetComponent<CharacterSelection>();
+        }
+
+
         playerRb = GetComponent<Rigidbody>();
         playerWeapon = GetComponent<AudioSource>();
     }
@@ -29,7 +37,13 @@ public class PlayerControl : MonoBehaviour {
     private void Update() {
         if(Input.GetButton("Jump") && Time.time > nextFire){
             nextFire = Time.time + fireRate;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            if(characterSelection.getIndex() == 1){
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                Instantiate(shot, shotSpawn2.position, shotSpawn2.rotation);
+            }
+            else{
+                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            }
             playerWeapon.Play();
         }
 
